@@ -3,10 +3,16 @@ from .models import *
 
 
 class PostAdmin(admin.ModelAdmin):
-    list_display = ('title', 'created')
+    list_display = ('title', 'author', 'artist', 'created')
     search_fields = ('title', 'body')
     list_filter = ('created',)
 
 
+class TagAdmin(admin.ModelAdmin):
+    list_display = ('name', 'slug', 'order')
+    search_fields = ('name', 'slug')
+    list_filter = ['order']
+
+
 admin.site.register(Post, PostAdmin)
-admin.site.register(Tag)
+admin.site.register(Tag, TagAdmin)
