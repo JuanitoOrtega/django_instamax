@@ -67,7 +67,7 @@ def post_create_view(request):
 
 @login_required
 def post_delete_view(request, pk):
-    post = get_object_or_404(Post, id=pk)
+    post = get_object_or_404(Post, id=pk, author=request.user)
     
     if request.method == "POST":
         post.delete()
@@ -79,7 +79,7 @@ def post_delete_view(request, pk):
 
 @login_required
 def post_edit_view(request, pk):
-    post = get_object_or_404(Post, id=pk)
+    post = get_object_or_404(Post, id=pk, author=request.user)
     form = PostEditForm(instance=post)
     
     if request.method == 'POST':
