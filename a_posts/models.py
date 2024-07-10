@@ -56,3 +56,69 @@ class Tag(models.Model):
     
     def __str__(self):
         return self.name
+
+
+class Comment(models.Model):
+    id = models.CharField(max_length=100, default=uuid.uuid4, unique=True, primary_key = True, editable=False, verbose_name='ID')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name='comments', verbose_name='Autor')
+    parent_post = models.ForeignKey(Post, on_delete=models.CASCADE, related_name='comments', verbose_name='Publicación')
+    body = models.CharField(max_length=150, verbose_name='Comentario')
+    likes = models.ManyToManyField(User, related_name='likedcomments', through='LikedComment', verbose_name='Me gusta')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
+
+    class Meta:
+        verbose_name = 'Comentario'
+        verbose_name_plural = 'Comentarios'
+        ordering = ['-created']
+        
+    def __str__(self):
+        try:
+            return f'{self.author.username} : {self.body[:30]}' 
+        except:
+            return f'no author : {self.body[:30]}'
+        
+        
+class LikedComment(models.Model):
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE, verbose_name='Comentario')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
+    
+    class Meta:
+        verbose_name = 'Comentario | Me gusta'
+        verbose_name_plural = 'Comentario | Me gusta'
+    
+    def __str__(self):
+        return f'{self.user.username} : {self.comment.body[:30]}'
+        
+        
+class Reply(models.Model):
+    id = models.CharField(max_length=100, default=uuid.uuid4, unique=True, primary_key = True, editable=False, verbose_name='ID')
+    author = models.ForeignKey(User, on_delete=models.SET_NULL, null=True, related_name="replies", verbose_name='Autor')
+    parent_comment = models.ForeignKey(Comment, on_delete=models.CASCADE, related_name="replies", verbose_name='Comentario')
+    body = models.CharField(max_length=150, verbose_name='Respuesta')
+    likes = models.ManyToManyField(User, related_name='likedreplies', through='LikedReply', verbose_name='Me gusta')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
+
+    class Meta:
+        verbose_name = 'Respuesta'
+        verbose_name_plural = 'Respuestas'
+        ordering = ['created']
+        
+    def __str__(self):
+        try:
+            return f'{self.author.username} : {self.body[:30]}'
+        except:
+            return f'no author : {self.body[:30]}'
+        
+        
+class LikedReply(models.Model):
+    reply = models.ForeignKey(Reply, on_delete=models.CASCADE, verbose_name='Respuesta')
+    user = models.ForeignKey(User, on_delete=models.CASCADE, verbose_name='Usuario')
+    created = models.DateTimeField(auto_now_add=True, verbose_name='Fecha de creación')
+    
+    class Meta:
+        verbose_name = 'Respuesta | Me gusta'
+        verbose_name_plural = 'Respuesta | Me gusta'
+    
+    def __str__(self):
+        return f'{self.user.username} : {self.reply.body[:30]}'

@@ -16,3 +16,7 @@ class TagAdmin(admin.ModelAdmin):
 
 admin.site.register(Post, PostAdmin)
 admin.site.register(Tag, TagAdmin)
+admin.site.register(Comment)
+admin.site.register(LikedComment)
+admin.site.register(Reply)
+admin.site.register(LikedReply)

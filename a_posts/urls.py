@@ -9,4 +9,8 @@ urlpatterns = [
     path('post/delete/<pk>/', post_delete_view, name='post-delete'),
     path('post/edit/<pk>/', post_edit_view, name='post-edit'),
     path('post/<pk>/', post_pague_view, name='post'),
+    path('commentsent/<pk>/', comment_sent, name='comment-sent'),
+    path('comment/delete/<pk>/', comment_delete_view, name='comment-delete'),
+    path('reply-sent/<pk>/', reply_sent, name='reply-sent'),
+    path('reply/delete/<pk>/', reply_delete_view, name='reply-delete'),
 ]
