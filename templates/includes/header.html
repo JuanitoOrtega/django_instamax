@@ -42,7 +42,7 @@
             </li>
             {% else %}
             <li><a href="{% url "account_login" %}">Iniciar sesión</a></li>
-            <li><a href="{% url "account_signup" %}">Registrarse</a></li>
+            <li><a href="{% url "account_signup" %}?next={% url "profile-onboarding" %}">Registrarse</a></li>
             {% endif %}
         </ul>
     </nav>

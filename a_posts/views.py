@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
-from django.db.models import Count
+from django.http import HttpResponse
 from .models import *
 from .forms import *
 from bs4 import BeautifulSoup
@@ -207,13 +207,13 @@ def like_toggle(model):
 
 @login_required
 @like_toggle(Post)
-def like_post(request, post):   
+def like_post(request, post):
     return render(request, 'snippets/likes.html', {'post' : post })
 
 
 @login_required
 @like_toggle(Comment)
-def like_comment(request, post):   
+def like_comment(request, post):
     return render(request, 'snippets/likes_comment.html', {'comment' : post })
 
 
