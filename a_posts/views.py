@@ -123,11 +123,11 @@ def post_pague_view(request, pk):
 @login_required 
 def comment_sent(request, pk):
     post = get_object_or_404(Post, id=pk)
-    # replyform = ReplyCreateForm()
+    replyform = ReplyCreateForm()
     
     if request.method == 'POST':
         form = CommentCreateForm(request.POST)
-        if form.is_valid:
+        if form.is_valid():
             comment = form.save(commit=False)
             comment.author = request.user
             comment.parent_post = post            
@@ -135,17 +135,17 @@ def comment_sent(request, pk):
             
     context = {
         'post' : post,
-        # 'comment': comment,
-        # 'replyform': replyform
+        'comment': comment,
+        'replyform': replyform
     }
 
-    return redirect('post', post.id)
+    return render(request, 'snippets/add_comment.html', context)
 
 
 @login_required 
 def reply_sent(request, pk):
     comment = get_object_or_404(Comment, id=pk)
-    # replyform = ReplyCreateForm()
+    replyform = ReplyCreateForm()
     
     if request.method == 'POST':
         form = ReplyCreateForm(request.POST)
@@ -158,10 +158,10 @@ def reply_sent(request, pk):
     context = {
         'reply' : reply,
         'comment': comment,
-        # 'replyform': replyform
+        'replyform': replyform
     }
 
-    return redirect('post', comment.parent_post.id)
+    return render(request, 'snippets/add_reply.html', context)
 
 
 @login_required
