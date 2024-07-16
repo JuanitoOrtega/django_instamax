@@ -30,14 +30,15 @@
     </div>
 
     <div id="tabs" class="flex justify-center my-4 gap-2" hx-target="#tab-contents" hx-swap="innerHTML"
-    _="on htmx:afterOnLoad take .selected for event.target"> 
-        <a hx-get="" class="tab selected">Latest</a>
-        <a hx-get="?top-posts" class="tab">Top Posts</a>  
-        <a hx-get="?top-comments" class="tab">Top Comments</a>
-        <a hx-get="?liked-posts" class="tab">Liked Posts</a>
+        _="on htmx:afterOnLoad take .selected for event.target">
+        <a hx-get="{% url "userprofile" profile.user.username %}" class="tab selected">Recientes</a>
+        <a hx-get="{% url "userprofile" profile.user.username %}?top-posts" class="tab">Publicaciones populares</a>
+        <a hx-get="{% url "userprofile" profile.user.username %}?top-comments" class="tab">Comentarios populares</a>
+        <a hx-get="{% url "userprofile" profile.user.username %}?liked-posts" class="tab">Me gusta</a>
     </div>
     <div id="tab-contents" class="w-full flex flex-col items-center">
-        <div class="grid place-items-start gap-x-8 mx-auto max-w-xl 
+
+        <div class="grid place-items-start gap-x-8 mx-auto max-w-xl
         {% if posts.count <= 1 %}
         {% elif posts.count == 2 %}lg:grid-cols-2 lg:max-w-5xl
         {% else %}lg:grid-cols-2 lg:max-w-5xl xl:grid-cols-3 xl:max-w-7xl{% endif %}">
@@ -50,6 +51,7 @@
             <div class="w-full text-center mt-10">Aún no hay publicaciones</div>
         {% endif %}
         </div>
+
     </div>
 </div>
 {% endblock %}
