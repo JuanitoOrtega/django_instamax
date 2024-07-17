@@ -1,11 +1,13 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
+from django.http import HttpResponse
 from django.db.models import Count
 from .models import *
 from .forms import *
 from bs4 import BeautifulSoup
-from django.contrib import messages
 import requests
+from django.contrib import messages
+from django.core.paginator import Paginator
 
 
 def home_view(request, tag=None):
@@ -15,11 +17,22 @@ def home_view(request, tag=None):
         tag = get_object_or_404(Tag, slug=tag)
     else:
         posts = Post.objects.all()
+        
+    paginator = Paginator(posts, 3)
+    page = int(request.GET.get('page', 1))
+    try:
+        posts = paginator.page(page)
+    except:
+        return HttpResponse('')
     
     context = {
         'posts': posts,
         'tag': tag,
+        'page': page,
     }
+    
+    if request.htmx:
+        return render(request, 'snippets/loop_home_posts.html', context)
     
     return render(request, 'a_posts/home.html', context)
 
