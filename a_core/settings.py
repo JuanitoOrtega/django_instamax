@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'django_cleanup.apps.CleanupConfig',
     'a_posts',
     'a_users',
+    'a_inbox',
 ]
 
 SITE_ID = 1
@@ -164,4 +165,4 @@ EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'root', 'superuser', 'user', 'usuario', 'administrador', 'superusuario', 'category', 'post']
+ACCOUNT_USERNAME_BLACKLIST = ['admin', 'root', 'superuser', 'user', 'usuario', 'administrador', 'superusuario', 'category', 'post', 'inbox']
