@@ -3,6 +3,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 
 from a_posts.forms import ReplyCreateForm
+from a_inbox.forms import InboxNewMessageForm
 from .forms import ProfileForm
 from django.urls import reverse
 from django.db.models import Count
@@ -33,12 +34,12 @@ def profile_view(request, username=None):
             posts = profile.user.likedposts.order_by('-likedpost__created') 
         return render(request, 'snippets/loop_profile_posts.html', { 'posts': posts })
         
-    # new_message_form = InboxNewMessageForm()
+    new_message_form = InboxNewMessageForm()
     
     context = {
         'profile' : profile,
         'posts': posts,
-        # 'new_message_form' : new_message_form
+        'new_message_form' : new_message_form,
     }
     
     return render(request, 'a_users/profile.html', context)
