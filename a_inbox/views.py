@@ -8,7 +8,7 @@ from django.conf import settings
 from .forms import InboxNewMessageForm
 from .models import *
 
-#f = Fernet(settings.FERNET_KEY)
+f = Fernet(settings.ENCRYPT_KEY)
 
 
 @login_required
@@ -16,6 +16,10 @@ def inbox_view(request, conversation_id=None):
     my_conversations = Conversation.objects.filter(participants=request.user)
     if conversation_id:
         conversation = get_object_or_404(my_conversations, id=conversation_id)
+        latest_message = conversation.messages.first()
+        if conversation.is_seen == False and latest_message.sender != request.user:
+            conversation.is_seen = True
+            conversation.save()
     else:
         conversation = None
     context = {
@@ -50,6 +54,25 @@ def new_message(request, recipient_id):
         form = InboxNewMessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
+            
+            # Encrypt the message
+            message_original = form.cleaned_data['body']
+            message_bytes = message_original.encode('utf-8')
+            message_encrypted = f.encrypt(message_bytes)
+            message_decoded = message_encrypted.decode('utf-8')
+            message.body = message_decoded
+            
+            # print('message_original:', message_original)
+            # print('message_bytes:', message_bytes)
+            # print('message_encrypted:', message_encrypted)
+            # print('message_decoded:', message_decoded)
+            
+            # message_decrypted = f.decrypt(message_decoded)
+            # message_decoded = message_decrypted.decode('utf-8')
+            
+            # print('message_decrypted:', message_decrypted)
+            # print('message_decoded:', message_decoded)
+            
             message.sender = request.user
 
             my_conversations = request.user.conversations.all()
@@ -58,6 +81,7 @@ def new_message(request, recipient_id):
                     message.conversation = c
                     message.save()
                     c.lastmessage_created = timezone.now()
+                    c.is_seen = False
                     c.save()
                     return redirect('inbox', c.id)
             new_conversation = Conversation.objects.create()
@@ -85,6 +109,13 @@ def new_reply(request, conversation_id):
         form = InboxNewMessageForm(request.POST)
         if form.is_valid():
             message = form.save(commit=False)
+            
+            message_original = form.cleaned_data['body']
+            message_bytes = message_original.encode('utf-8')
+            message_encrypted = f.encrypt(message_bytes)
+            message_decoded = message_encrypted.decode('utf-8')
+            message.body = message_decoded
+            
             message.sender = request.user
             message.conversation = conversation
             message.save()
@@ -106,7 +137,7 @@ def notify_newmessage(request, conversation_id):
     if conversation.is_seen == False and latest_message.sender != request.user:
         return render(request, 'a_inbox/notify_icon.html')
     else:
-        return HttpResponse('') 
+        return HttpResponse('')
     
     
 def notify_inbox(request):
@@ -115,4 +146,4 @@ def notify_inbox(request):
         latest_message = c.messages.first()
         if latest_message.sender != request.user:
             return render(request, 'a_inbox/notify_icon.html')
-    return HttpResponse('') 
+    return HttpResponse('')

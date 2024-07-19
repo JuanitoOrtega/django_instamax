@@ -17,6 +17,13 @@ class InboxMessage(models.Model):
         verbose_name = "Mensaje"
         verbose_name_plural = "Mensajes"
         ordering = ['-created']
+    
+    @property
+    def body_decrypted(self):
+        f = Fernet(settings.ENCRYPT_KEY)
+        message_decrypted = f.decrypt(self.body)
+        message_decoded = message_decrypted.decode('utf-8')
+        return message_decoded
         
     def __str__(self):
         time_since = timesince(self.created, timezone.now())
