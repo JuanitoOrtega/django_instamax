@@ -5,7 +5,7 @@ from .models import Feature
 def feature_enabled(id, developer):
     feature = Feature.objects.get(id=id)
     
-    if (settings.ENVIROMENT == 'development' and settings.DEVELOPER == developer) or \
+    if (settings.ENVIRONMENT == 'development' and settings.DEVELOPER == developer) or \
         (feature.staging_enabled and settings.STAGING == 'True') or \
         feature.production_enabled:
         feature_enabled = True
