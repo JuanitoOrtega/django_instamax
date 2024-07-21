@@ -6,3 +6,6 @@ class AInboxConfig(AppConfig):
     name = 'a_inbox'
     
     verbose_name = "Mensajería"
+    
+    def ready(self):
+        import a_inbox.signals
