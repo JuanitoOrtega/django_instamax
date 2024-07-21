@@ -1,10 +1,14 @@
 <hero class="grid bg-gray-700 text-white text-center bg-cover z-10 relative bg-[url('https://live.staticflickr.com/65535/49909538937_3255dcf9e7_b.jpg')]">
     <div class="col-start-1 row-start-1 bg-gray-800 bg-opacity-40 w-full h-full"></div>
     <div class="col-start-1 row-start-1 py-24 px-10 ">
-        <h1 class="font1 text-6xl title-fadein">Awesome Photos & Captions</h1>
-        <p class="text-lg font-bold mb-5">Share your favorite Photos from Flickr and add a great caption</p>
+        <h1 class="font1 text-6xl title-fadein">Fotos & Subtítulos impresionantes</h1>
+        <p class="text-lg font-bold mb-5">Comparte tus fotos favoritas de Flickr y agrega un excelente título</p>
         {% if not user.is_authenticated %}
-        <a class="button" href="{% url "account_signup" %}">Get Started</a>
+            {% if feature_herobutton %}
+            <a style="background-color:#06B6D4;" class="button" href="{% url "account_signup" %}">Registrarse</a>
+            {% else %}
+            <a class="button" href="{% url "account_signup" %}">Empezar</a>
+            {% endif %}
         {% endif %}
     </div>
 </hero>
