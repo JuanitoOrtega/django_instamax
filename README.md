@@ -51,6 +51,16 @@ pip install whitenoise
 ```bash
 python manage.py collectstatic
 ```
+## Generate encryp_key with Fernet
+```bash
+python
+from cryptography.fernet import Fernet
+key = Fernet.generate_key()
+print(key)
+```
+
+
+
 
 # Original tutorial
 # Awesome
