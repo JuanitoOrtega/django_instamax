@@ -15,6 +15,11 @@ jobs:
       matrix:
         python-version: [3.11.3]
 
+    env:
+      ENVIRONMENT: development
+      SECRET_KEY: secret_key
+      ENCRYPT_KEY: iStpRBLd-kUOnc6hASVgdx-D0iUfzfAht26V01gigRE=
+
     steps:
     - uses: actions/checkout@v4
     - name: Set up Python ${{ matrix.python-version }}
