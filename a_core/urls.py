@@ -9,6 +9,7 @@ urlpatterns = [
     path('accounts/', include('allauth.urls')),
     path('inbox/', include('a_inbox.urls')),
     path('', include('a_posts.urls')),
+    path('_/', include('a_landingpages.urls')),
     path('', include('a_users.urls')),
 ]
 
