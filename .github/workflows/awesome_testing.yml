@@ -19,6 +19,7 @@ jobs:
       ENVIRONMENT: development
       SECRET_KEY: secret_key
       ENCRYPT_KEY: iStpRBLd-kUOnc6hASVgdx-D0iUfzfAht26V01gigRE=
+      RENDER_EXTERNAL_HOSTNAME: django-instamax.onrender.com
 
     steps:
     - uses: actions/checkout@v4
