@@ -1,13 +1,31 @@
 {% load static %}
 <!DOCTYPE html>
-<html lang="en">
+<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Awesome</title>
+    <title>{% block title %}{% endblock %} | Awesome</title>
+    <meta name="description" content="Image-sharing platform with rankings">
+    <meta name="keywords" content="flickr, photo, image sharing, captions, ranking, social platform">
+    <meta name="author" content="Juanito Ortega">
+    <link rel="canonical" href="http://{{ request.META.HTTP_HOST }}{{ request.path }}">
+    
+    <meta property="og:locale" content="es_US">
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="Awesome">
+    <meta property="og:title" content="{% block og-caption %}Awesome{% endblock %}">
+    <meta property="og:url" content="http://{{ request.META.HTTP_HOST }}{{ request.path }}">
+    <meta property="og:description" content="{% block og-description %}Image-sharing platform with rankings{% endblock %}">
+    <meta property="og:image" content="{% block og-image %}http://{{ request.META.HTTP_HOST }}{% static "images/awesome-1200x630.jpg" %}{% endblock %}">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:site" content="@JuanitoOrtega">
+    <meta name="twitter:title" content="{% block tw-caption %}Awesome{% endblock %}">
+    <meta name="twitter:description" content="{% block tw-description %}Image-sharing platform with rankings{% endblock %}">
+    <meta name="twitter:image" content="{% block tw-image %}http://{{ request.META.HTTP_HOST }}{% static "images/awesome-600x600.jpg" %}{% endblock %}">
+
     <link rel="shortcut icon" type="image/png" href="https://img.icons8.com/small/64/000000/fire-heart.png"/>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Lobster&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>

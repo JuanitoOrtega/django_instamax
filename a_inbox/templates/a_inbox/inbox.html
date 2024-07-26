@@ -1,6 +1,8 @@
 {% extends "layouts/d.html" %}
 {% load static %}
 
+{% block title %}Bandeja de entrada{% endblock %}
+
 {% block content %}
 <inbox class="grid grid-cols-5 sm:grid-cols-4 h-[calc(100vh-8rem)] md:h-[calc(100vh-12rem)] shadow-2xl rounded-2xl mx-1 lg:mx-10 xl:mx-48">
     <div x-data="{ modal_open: false }" class="col-span-1 bg-slate-10 rounded-l-2xl p-2 overflow-y-auto">
