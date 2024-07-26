@@ -41,7 +41,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['localhost', '127.0.0.1', env('RENDER_EXTERNAL_HOSTNAME'), 'instamax.juanitodev.com']
+ALLOWED_HOSTS = ['localhost', '127.0.0.1', env('RENDER_EXTERNAL_HOSTNAME', default=''), 'instamax.juanitodev.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.juanitodev.com', 'https://*.onrender.com']
 
@@ -69,6 +69,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'django_cleanup.apps.CleanupConfig',
+    'django.contrib.sitemaps',
     'a_posts',
     'a_users',
     'a_inbox',
