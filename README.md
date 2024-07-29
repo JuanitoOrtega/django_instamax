@@ -58,8 +58,18 @@ from cryptography.fernet import Fernet
 key = Fernet.generate_key()
 print(key)
 ```
-
-
+## Verificar version de Django
+```bash
+python -m django --version
+```
+## Listar librerías que tienen versiones recientes
+```bash
+pip list -o
+```
+## Actualizar librerías
+```bash
+pip install -r requirements.txt --upgrade
+```
 
 
 # Original tutorial
