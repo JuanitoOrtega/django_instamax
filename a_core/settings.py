@@ -144,7 +144,7 @@ DATABASES = {
 }
 
 # Change to False if you want to use SQLite
-POSTGRES_LOCALLY = False
+POSTGRES_LOCALLY = True
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
@@ -191,12 +191,29 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = 'media/'
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY:
-    DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
-    CLOUDINARY_STORAGE = {
-        'CLOUD_NAME': env('CLOUD_NAME'),
-        'API_KEY': env('CLOUD_API_KEY'),
-        'API_SECRET': env('CLOUD_API_SECRET'),
+    # AWS settings
+    STORAGES = {
+        "default": {
+            "BACKEND": "storages.backends.s3.S3Storage",
+        },
+        "staticfiles": {
+            "BACKEND": "django.contrib.staticfiles.storage.StaticFilesStorage",
+        }
     }
+    AWS_ACCESS_KEY_ID = env('AWS_ACCESS_KEY_ID')
+    AWS_SECRET_ACCESS_KEY = env('AWS_SECRET_ACCESS_KEY')
+    AWS_STORAGE_BUCKET_NAME = env('AWS_STORAGE_BUCKET_NAME')
+    AWS_S3_CUSTOM_DOMAIN = f'{AWS_STORAGE_BUCKET_NAME}.s3.amazonaws.com'
+    AWS_S3_FILE_OVERWRITE = False
+    AWS_LOCATION = 'media'
+    
+    # Cloudinary settings
+    # DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+    # CLOUDINARY_STORAGE = {
+    #     'CLOUD_NAME': env('CLOUD_NAME'),
+    #     'API_KEY': env('CLOUD_API_KEY'),
+    #     'API_SECRET': env('CLOUD_API_SECRET'),
+    # }
 else:
     MEDIA_ROOT = BASE_DIR / 'media'
 
