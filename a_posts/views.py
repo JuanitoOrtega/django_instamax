@@ -9,9 +9,20 @@ import requests
 from django.contrib import messages
 from django.core.paginator import Paginator
 from a_features.views import feature_enabled
+from django.conf import settings
+from django.http import Http404
+from django.contrib.auth.decorators import user_passes_test
+import logging
+logger = logging.getLogger(__name__)
 
 
 def home_view(request, tag=None):
+    
+    logger.debug('This is a debug message')
+    logger.info('This is an info message')
+    logger.warning('This is a warning message')
+    logger.error('This is an error message')
+    logger.critical('This is a critical message')
     
     if tag:
         posts = Post.objects.filter(tags__slug=tag)
@@ -42,6 +53,21 @@ def home_view(request, tag=None):
         return render(request, 'snippets/loop_home_posts.html', context)
     
     return render(request, 'a_posts/home.html', context)
+
+
+def is_staff(user):
+    return user.is_staff
+
+
+@user_passes_test(is_staff)
+def view_log_file(request, filename):
+    file_path = settings.BASE_DIR / filename
+    if file_path.exists():
+        with open(file_path, 'r') as file:
+            response = HttpResponse(file.read(), content_type='text/plain')
+            return response
+    else:
+        raise Http404("El archivo solicitado no existe.")
 
 
 @login_required
