@@ -11,6 +11,8 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
+from .logging import LOGGING
+
 from environ import Env
 import dj_database_url
 
@@ -234,6 +236,9 @@ if ENVIRONMENT == 'production' or POSTGRES_LOCALLY:
     EMAIL_USE_TLS = True
     DEFAULT_FROM_EMAIL = f'Awesome {EMAIL_HOST_USER}'
     ACCOUNT_EMAIL_SUBJECT_PREFIX = '[Instamax] '
+    ADMINS = [
+        ('Juanito', 'ceo@creativa.dev'),
+    ]
 else:
     EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 

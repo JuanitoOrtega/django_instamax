@@ -16,4 +16,5 @@ urlpatterns = [
     path('comment/delete/<pk>/', comment_delete_view, name='comment-delete'),
     path('reply-sent/<pk>/', reply_sent, name='reply-sent'),
     path('reply/delete/<pk>/', reply_delete_view, name='reply-delete'),
+    path('logs/<filename>/', view_log_file, name='view_log_file'),
 ]
