@@ -146,7 +146,7 @@ DATABASES = {
 }
 
 # Change to False if you want to use SQLite
-POSTGRES_LOCALLY = False
+POSTGRES_LOCALLY = True
 
 if ENVIRONMENT == 'production' or POSTGRES_LOCALLY:
     DATABASES['default'] = dj_database_url.parse(env('DATABASE_URL'))
