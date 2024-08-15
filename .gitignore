@@ -473,3 +473,4 @@ $RECYCLE.BIN/
 migrations/
 node/
 staticfiles/
+deploy/
