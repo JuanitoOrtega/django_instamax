@@ -43,7 +43,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = [env('RENDER_EXTERNAL_HOSTNAME', default=''), 'instamax.juanitodev.com']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', env('RENDER_EXTERNAL_HOSTNAME', default=''), 'instamax.juanitodev.com']
 
 CSRF_TRUSTED_ORIGINS = ['https://*.juanitodev.com']
 
