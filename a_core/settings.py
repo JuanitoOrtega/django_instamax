@@ -43,7 +43,7 @@ if ENVIRONMENT == 'development':
 else:
     DEBUG = False
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', env('RENDER_EXTERNAL_HOSTNAME', default=''), 'instamax.juanitodev.com']
+ALLOWED_HOSTS = env.list('EXTERNAL_HOSTNAME', default=[''])
 
 CSRF_TRUSTED_ORIGINS = ['https://*.juanitodev.com']
 
@@ -54,7 +54,6 @@ INTERNAL_IPS = [
 
 
 # Application definition
-
 INSTALLED_APPS = [
     'django.contrib.admin',
     'django.contrib.auth',
@@ -247,4 +246,16 @@ else:
 ACCOUNT_AUTHENTICATION_METHOD = 'email'
 ACCOUNT_EMAIL_REQUIRED = True
 
-ACCOUNT_USERNAME_BLACKLIST = ['admin', 'root', 'superuser', 'user', 'usuario', 'administrador', 'superusuario', 'category', 'post', 'inbox', 'theboss']
+ACCOUNT_USERNAME_BLACKLIST = [
+    'admin',
+    'root',
+    'superuser',
+    'user',
+    'usuario',
+    'administrador',
+    'superusuario',
+    'category',
+    'post',
+    'inbox',
+    'theboss',
+]
