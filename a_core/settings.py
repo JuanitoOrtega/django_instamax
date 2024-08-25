@@ -11,8 +11,6 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from .logging import LOGGING
-
 from environ import Env
 import dj_database_url
 
