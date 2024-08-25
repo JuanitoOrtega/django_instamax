@@ -1,3 +1,4 @@
+import requests
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from django.http import HttpResponse
@@ -5,24 +6,15 @@ from django.db.models import Count
 from .models import *
 from .forms import *
 from bs4 import BeautifulSoup
-import requests
 from django.contrib import messages
 from django.core.paginator import Paginator
 from a_features.views import feature_enabled
 from django.conf import settings
 from django.http import Http404
 from django.contrib.auth.decorators import user_passes_test
-import logging
-logger = logging.getLogger(__name__)
 
 
 def home_view(request, tag=None):
-    
-    logger.debug('This is a debug message')
-    logger.info('This is an info message')
-    logger.warning('This is a warning message')
-    logger.error('This is an error message')
-    logger.critical('This is a critical message')
     
     if tag:
         posts = Post.objects.filter(tags__slug=tag)
