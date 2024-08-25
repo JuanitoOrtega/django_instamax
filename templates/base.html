@@ -31,7 +31,7 @@
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js" defer></script>
     <script src="https://unpkg.com/htmx.org@2.0.0"></script>
     <script src="https://unpkg.com/hyperscript.org@0.9.12"></script>
-    <link rel="stylesheet" href="{% if debug %}{% static "css/styles.css" %}{% else %}{% static "css/styles.min.css" %}{% endif %}">
+    <link rel="stylesheet" href="{% if settings.DEBUG %}{% static "css/styles.css" %}{% else %}{% static "css/styles.min.css" %}{% endif %}">
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-EHJ6F59KBY"></script>
     <script>
